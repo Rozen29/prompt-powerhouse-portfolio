@@ -4,32 +4,60 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AnimatedSection, { AnimatedItem } from './AnimatedSection';
 import LazyImage from './LazyImage';
+import { Badge } from '@/components/ui/badge';
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  githubUrl: string;
+  liveUrl: string;
+  technologies: string[];
+}
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
+  const [projects, setProjects] = useState<Project[]>([]);
   
-  const projects = [
-    {
-      title: t('projects.bolt.title'),
-      description: t('projects.bolt.description'),
-      image: '/placeholder.svg', // Using placeholder image
-      githubUrl: '#',
-      liveUrl: '#',
-    },
-    {
-      title: t('projects.loveable.title'),
-      description: t('projects.loveable.description'),
-      image: '/placeholder.svg', // Using placeholder image
-      githubUrl: '#',
-      liveUrl: '#',
+  useEffect(() => {
+    // Load projects from localStorage (added by the admin CMS)
+    const storedProjects = localStorage.getItem('portfolio_projects');
+    const parsedProjects = storedProjects ? JSON.parse(storedProjects) : [];
+    
+    // If there are stored projects, use them; otherwise, use default projects
+    if (parsedProjects.length > 0) {
+      setProjects(parsedProjects);
+    } else {
+      // Default projects when none exist in localStorage
+      setProjects([
+        {
+          id: "1",
+          title: t('projects.bolt.title'),
+          description: t('projects.bolt.description'),
+          image: '/placeholder.svg',
+          githubUrl: '#',
+          liveUrl: '#',
+          technologies: ["React", "TypeScript", "Tailwind"],
+        },
+        {
+          id: "2",
+          title: t('projects.loveable.title'),
+          description: t('projects.loveable.description'),
+          image: '/placeholder.svg',
+          githubUrl: '#',
+          liveUrl: '#',
+          technologies: ["Next.js", "React", "Framer Motion"],
+        }
+      ]);
     }
-  ];
+  }, [t]);
   
   return (
-    <section id="projects" className="py-24 bg-secondary/50 dark:bg-secondary/10">
+    <section id="projects" className="py-24 bg-darkblue-dark">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <h2 className="text-3xl font-bold mb-12 text-center">
@@ -39,12 +67,12 @@ export default function ProjectsSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {projects.map((project, index) => (
-            <AnimatedSection key={index} delay={0.2 * (index + 1)}>
+            <AnimatedSection key={project.id} delay={0.2 * (index + 1)}>
               <motion.div
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="overflow-hidden border border-border hover:border-primary transition-all duration-300 h-full">
+                <Card className="overflow-hidden border border-darkblue-light hover:border-primary transition-all duration-300 h-full bg-darkblue-DEFAULT">
                   <LazyImage 
                     src={project.image} 
                     alt={project.title}
@@ -57,6 +85,16 @@ export default function ProjectsSection() {
                     <CardDescription className="text-base">
                       {project.description}
                     </CardDescription>
+                    
+                    {project.technologies && (
+                      <div className="mt-4 flex flex-wrap gap-1">
+                        {project.technologies.map((tech, i) => (
+                          <Badge key={i} variant="outline" className="bg-primary/10 border-primary/20">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </CardContent>
                   <CardFooter className="flex justify-between">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

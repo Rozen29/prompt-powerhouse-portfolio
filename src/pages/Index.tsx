@@ -8,6 +8,7 @@ import SkillsSection from '../components/SkillsSection';
 import ProjectsSection from '../components/ProjectsSection';
 import EducationSection from '../components/EducationSection';
 import ContactSection from '../components/ContactSection';
+import AIPromptPlayground from '../components/AIPromptPlayground';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 
@@ -28,6 +29,7 @@ const Index = () => {
             <AboutSection />
             <SkillsSection />
             <ProjectsSection />
+            <AIPromptPlayground />
             <EducationSection />
             <ContactSection />
           </main>
