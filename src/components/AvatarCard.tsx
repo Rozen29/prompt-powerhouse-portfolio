@@ -1,5 +1,5 @@
 
-import { GitHub, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 export default function AvatarCard() {
@@ -43,7 +43,7 @@ export default function AvatarCard() {
             
             <div className="mt-4 flex justify-center space-x-4">
               <a href="#" className="text-white/80 hover:text-white transition-colors">
-                <GitHub className="h-5 w-5" />
+                <Github className="h-5 w-5" />
               </a>
               <a href="#" className="text-white/80 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />

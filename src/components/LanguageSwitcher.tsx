@@ -1,5 +1,5 @@
 
-import { Language } from 'lucide-react';
+import { Languages } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
-          <Language className="h-5 w-5" />
+          <Languages className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
