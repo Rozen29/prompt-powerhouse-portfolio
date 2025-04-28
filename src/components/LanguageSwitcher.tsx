@@ -2,6 +2,7 @@
 import { Languages } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,9 +16,16 @@ export default function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Languages className="h-5 w-5" />
-        </Button>
+        <motion.div whileTap={{ scale: 0.95 }}>
+          <Button variant="ghost" size="icon" className="rounded-full">
+            <motion.div 
+              whileHover={{ rotate: 20 }} 
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <Languages className="h-5 w-5" />
+            </motion.div>
+          </Button>
+        </motion.div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setLanguage('en')} className={language === 'en' ? 'bg-accent' : ''}>

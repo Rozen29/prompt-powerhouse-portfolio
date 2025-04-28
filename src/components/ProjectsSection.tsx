@@ -3,6 +3,10 @@ import { useLanguage } from '../hooks/useLanguage';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import AnimatedSection, { AnimatedItem } from './AnimatedSection';
+import LazyImage from './LazyImage';
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
@@ -27,40 +31,54 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="py-24 bg-secondary/50 dark:bg-secondary/10">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-12 text-center">
-          <span className="inline-block border-b-2 border-primary pb-1">{t('projects.title')}</span>
-        </h2>
+        <AnimatedSection>
+          <h2 className="text-3xl font-bold mb-12 text-center">
+            <span className="inline-block border-b-2 border-primary pb-1">{t('projects.title')}</span>
+          </h2>
+        </AnimatedSection>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {projects.map((project, index) => (
-            <Card key={index} className="overflow-hidden border border-border hover:border-primary transition-all duration-300">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-48 object-cover" 
-              />
-              <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  {project.description}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" size="sm" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4 mr-2" />
-                    GitHub
-                  </a>
-                </Button>
-                <Button size="sm" asChild>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Live Demo
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
+            <AnimatedSection key={index} delay={0.2 * (index + 1)}>
+              <motion.div
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Card className="overflow-hidden border border-border hover:border-primary transition-all duration-300 h-full">
+                  <LazyImage 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <CardHeader>
+                    <CardTitle>{project.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base">
+                      {project.description}
+                    </CardDescription>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button variant="outline" size="sm" asChild>
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-4 w-4 mr-2" />
+                          GitHub
+                        </a>
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button size="sm" asChild>
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Live Demo
+                        </a>
+                      </Button>
+                    </motion.div>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
