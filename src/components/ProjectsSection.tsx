@@ -22,6 +22,7 @@ interface Project {
 export default function ProjectsSection() {
   const { t } = useLanguage();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
   
   useEffect(() => {
     // Load projects from localStorage (added by the admin CMS)
@@ -71,8 +72,10 @@ export default function ProjectsSection() {
               <motion.div
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                onHoverStart={() => setActiveProjectId(project.id)}
+                onHoverEnd={() => setActiveProjectId(null)}
               >
-                <Card className="overflow-hidden border border-darkblue-light hover:border-primary transition-all duration-300 h-full bg-darkblue-DEFAULT">
+                <Card className={`overflow-hidden border border-darkblue-light hover:border-primary transition-all duration-300 h-full bg-darkblue-DEFAULT card-glow ${activeProjectId === project.id ? 'active-blue' : ''}`}>
                   <LazyImage 
                     src={project.image} 
                     alt={project.title}

@@ -6,10 +6,12 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedSection, { AnimatedItem } from './AnimatedSection';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const { scrollToSection } = useSmoothScroll();
+  const [isAvatarActive, setIsAvatarActive] = useState(false);
   
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
@@ -69,8 +71,14 @@ export default function HeroSection() {
               </AnimatedItem>
             </AnimatedSection>
           </div>
-          <div className="order-1 md:order-2 flex justify-center">
-            <AvatarCard />
+          <div 
+            className="order-1 md:order-2 flex justify-center"
+            onMouseEnter={() => setIsAvatarActive(true)}
+            onMouseLeave={() => setIsAvatarActive(false)}
+          >
+            <div className={`card-glow ${isAvatarActive ? 'active-purple' : ''} rounded-xl`}>
+              <AvatarCard />
+            </div>
           </div>
         </div>
       </div>

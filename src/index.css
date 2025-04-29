@@ -116,6 +116,26 @@
   .flip-card-back {
     @apply rotate-y-180;
   }
+  
+  /* Card glow effect styles */
+  .card-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .card-glow.active {
+    @apply shadow-[0_0_15px_rgba(155,135,245,0.5)];
+    animation: glow-pulse 2s infinite alternate;
+  }
+  
+  .card-glow.active-purple {
+    @apply shadow-[0_0_15px_rgba(155,135,245,0.5)];
+    animation: glow-pulse-purple 2s infinite alternate;
+  }
+  
+  .card-glow.active-blue {
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.5)];
+    animation: glow-pulse-blue 2s infinite alternate;
+  }
 }
 
 /* Custom utilities */
@@ -134,6 +154,40 @@
   
   .rotate-y-180 {
     transform: rotateY(180deg);
+  }
+}
+
+/* Glow effect animations */
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    border-color: rgba(139, 92, 246, 0.6);
+  }
+}
+
+@keyframes glow-pulse-purple {
+  0% {
+    box-shadow: 0 0 10px rgba(155, 135, 245, 0.5);
+    border-color: rgba(155, 135, 245, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(155, 135, 245, 0.8);
+    border-color: rgba(155, 135, 245, 0.6);
+  }
+}
+
+@keyframes glow-pulse-blue {
+  0% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    border-color: rgba(59, 130, 246, 0.6);
   }
 }
 

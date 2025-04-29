@@ -2,9 +2,11 @@
 import { useLanguage } from '../hooks/useLanguage';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Code, Cpu, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
 
 export default function SkillsSection() {
   const { t } = useLanguage();
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
   
   const skills = [
     {
@@ -32,7 +34,12 @@ export default function SkillsSection() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skills.map((skill, index) => (
-            <Card key={index} className="border border-border hover:border-primary transition-all duration-300">
+            <Card 
+              key={index} 
+              className={`border border-border hover:border-primary transition-all duration-300 card-glow ${activeCardIndex === index ? 'active-purple' : ''}`}
+              onMouseEnter={() => setActiveCardIndex(index)}
+              onMouseLeave={() => setActiveCardIndex(null)}
+            >
               <CardHeader className="flex items-center">
                 <div className="mb-4">
                   {skill.icon}
