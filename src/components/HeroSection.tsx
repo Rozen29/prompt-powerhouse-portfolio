@@ -1,5 +1,6 @@
 
 import { useLanguage } from '../hooks/useLanguage';
+import { useSmoothScroll } from '../hooks/useSmoothScroll';
 import AvatarCard from './AvatarCard';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,12 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   const { t } = useLanguage();
+  const { scrollToSection } = useSmoothScroll();
+  
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
   
   return (
     <section id="home" className="min-h-screen flex items-center pt-16">
@@ -37,7 +44,7 @@ export default function HeroSection() {
                 <div className="flex flex-wrap gap-4">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button asChild>
-                      <a href="#projects" className="group">
+                      <a href="#projects" className="group" onClick={(e) => handleNavClick(e, 'projects')}>
                         {t('nav.projects')}
                         <motion.div
                           animate={{ x: [0, 5, 0] }}
@@ -55,7 +62,7 @@ export default function HeroSection() {
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button variant="outline" asChild>
-                      <a href="#contact">{t('nav.contact')}</a>
+                      <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.contact')}</a>
                     </Button>
                   </motion.div>
                 </div>

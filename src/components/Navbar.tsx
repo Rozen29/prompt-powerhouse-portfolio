@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
+import { useSmoothScroll } from '../hooks/useSmoothScroll';
 import ThemeSwitcher from './ThemeSwitcher';
 import LanguageSwitcher from './LanguageSwitcher';
 import { Menu, X } from 'lucide-react';
@@ -10,6 +11,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { scrollToSection } = useSmoothScroll();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -30,14 +32,20 @@ export default function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+    setIsMenuOpen(false);
+  };
   
   const navItems = [
-    { label: t('nav.home'), href: '#home' },
-    { label: t('nav.about'), href: '#about' },
-    { label: t('nav.skills'), href: '#skills' },
-    { label: t('nav.projects'), href: '#projects' },
-    { label: t('nav.education'), href: '#education' },
-    { label: t('nav.contact'), href: '#contact' }
+    { label: t('nav.home'), href: '#home', id: 'home' },
+    { label: t('nav.about'), href: '#about', id: 'about' },
+    { label: t('nav.skills'), href: '#skills', id: 'skills' },
+    { label: t('nav.projects'), href: '#projects', id: 'projects' },
+    { label: t('nav.education'), href: '#education', id: 'education' },
+    { label: t('nav.contact'), href: '#contact', id: 'contact' }
   ];
   
   return (
@@ -48,7 +56,11 @@ export default function Navbar() {
     >
       <nav className="container mx-auto py-4 px-6 flex items-center justify-between">
         <div className="flex items-center">
-          <a href="#" className="text-xl font-bold text-primary">
+          <a 
+            href="#home" 
+            className="text-xl font-bold text-primary"
+            onClick={(e) => handleNavClick(e, 'home')}
+          >
             AI Developer
           </a>
         </div>
@@ -60,6 +72,7 @@ export default function Navbar() {
               key={item.href} 
               href={item.href}
               className="hover:text-primary transition-colors text-sm font-medium"
+              onClick={(e) => handleNavClick(e, item.id)}
             >
               {item.label}
             </a>
@@ -97,7 +110,7 @@ export default function Navbar() {
                 key={item.href} 
                 href={item.href}
                 className="hover:text-primary transition-colors py-2 text-sm font-medium"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, item.id)}
               >
                 {item.label}
               </a>
