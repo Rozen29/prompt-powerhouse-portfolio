@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
-import React from "react"; // Added React import
+import React from "react";
 
 // Create a new client for every component mount
 const App = () => {

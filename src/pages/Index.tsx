@@ -11,6 +11,7 @@ import ContactSection from '../components/ContactSection';
 import AIPromptPlayground from '../components/AIPromptPlayground';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 const Index = () => {
   return (
@@ -34,6 +35,7 @@ const Index = () => {
             <ContactSection />
           </main>
           <Footer />
+          <FloatingActionButton />
         </motion.div>
       </LanguageProvider>
     </ThemeProvider>
